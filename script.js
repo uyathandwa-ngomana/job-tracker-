@@ -1,4 +1,4 @@
-// 1. Select the elements from the HTML using their IDs
+// 1. Select the elements
 const companyInput = document.getElementById('company');
 const roleInput = document.getElementById('role');
 const locationInput = document.getElementById('location');
@@ -7,44 +7,68 @@ const statusInput = document.getElementById('status');
 const addBtn = document.getElementById('add-btn');
 const jobsContainer = document.getElementById('jobs-container');
 
-// 2. Add a click event to the button
-// [Previous variable selections stay the same]
+// 2. Load jobs from LocalStorage when the page starts
+window.onload = function() {
+    const savedJobs = JSON.parse(localStorage.getItem('myJobs')) || [];
+    savedJobs.forEach(job => displayJob(job));
+};
 
-addBtn.addEventListener('click', function() {
-    const company = companyInput.value;
-    const role = roleInput.value;
-    const location = locationInput.value;
-    const date = dateInput.value;
-    const status = statusInput.value;
-
-    if (company === '' || role === '') {
-        alert("Please enter at least the Company and Job Title.");
-        return;
-    }
-
+// 3. Function to create the HTML and show the job on the page
+function displayJob(jobData) {
     const li = document.createElement('li');
-
-    // 5. Add the HTML content AND a Delete Button
     li.innerHTML = `
         <div class="job-card-content">
-            <span class="job-title">${role} at ${company}</span>
-            <div class="job-info">${location} | Applied on: ${date}</div>
-            <div class="status-badge">${status}</div>
+            <span class="job-title">${jobData.role} at ${jobData.company}</span>
+            <div class="job-info">${jobData.location} | Applied on: ${jobData.date}</div>
+            <div class="status-badge">${jobData.status}</div>
         </div>
         <button class="delete-btn">Delete</button>
     `;
 
-    // 6. Add the delete functionality to this specific button
-    const deleteBtn = li.querySelector('.delete-btn');
-    deleteBtn.addEventListener('click', function() {
-        li.remove(); // This removes the entire <li> from the page
+    // Delete button logic
+    li.querySelector('.delete-btn').addEventListener('click', function() {
+        li.remove();
+        removeJobFromStorage(jobData.id);
     });
 
     jobsContainer.appendChild(li);
+}
+
+// 4. Click event to add a new job
+addBtn.addEventListener('click', function() {
+    const job = {
+        id: Date.now(), // Unique ID for each job
+        company: companyInput.value,
+        role: roleInput.value,
+        location: locationInput.value,
+        date: dateInput.value,
+        status: statusInput.value
+    };
+
+    if (job.company === '' || job.role === '') {
+        alert("Please enter at least the Company and Job Title.");
+        return;
+    }
+
+    displayJob(job); // Show on screen
+    saveJobToStorage(job); // Save to memory
 
     // Clear inputs
     companyInput.value = '';
     roleInput.value = '';
     locationInput.value = '';
-    document.getElementById('date').valueAsDate = new Date();
 });
+
+// 5. Helper function: Save a job to LocalStorage
+function saveJobToStorage(job) {
+    const jobs = JSON.parse(localStorage.getItem('myJobs')) || [];
+    jobs.push(job);
+    localStorage.setItem('myJobs', JSON.stringify(jobs));
+}
+
+// 6. Helper function: Remove a job from LocalStorage
+function removeJobFromStorage(id) {
+    let jobs = JSON.parse(localStorage.getItem('myJobs')) || [];
+    jobs = jobs.filter(job => job.id !== id);
+    localStorage.setItem('myJobs', JSON.stringify(jobs));
+}
