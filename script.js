@@ -8,37 +8,43 @@ const addBtn = document.getElementById('add-btn');
 const jobsContainer = document.getElementById('jobs-container');
 
 // 2. Add a click event to the button
+// [Previous variable selections stay the same]
+
 addBtn.addEventListener('click', function() {
-    
-    // Get the values from the input fields
     const company = companyInput.value;
     const role = roleInput.value;
     const location = locationInput.value;
     const date = dateInput.value;
     const status = statusInput.value;
 
-    // 3. Simple Check: Don't add if fields are empty
     if (company === '' || role === '') {
         alert("Please enter at least the Company and Job Title.");
         return;
     }
 
-    // 4. Create a new list item (li) for the job
     const li = document.createElement('li');
 
-    // 5. Add the HTML content to the list item
+    // 5. Add the HTML content AND a Delete Button
     li.innerHTML = `
-        <span class="job-title">${role} at ${company}</span>
-        <div class="job-info">${location} | Applied on: ${date}</div>
-        <div class="status-badge">${status}</div>
+        <div class="job-card-content">
+            <span class="job-title">${role} at ${company}</span>
+            <div class="job-info">${location} | Applied on: ${date}</div>
+            <div class="status-badge">${status}</div>
+        </div>
+        <button class="delete-btn">Delete</button>
     `;
 
-    // 6. Add the new job to the container on the page
+    // 6. Add the delete functionality to this specific button
+    const deleteBtn = li.querySelector('.delete-btn');
+    deleteBtn.addEventListener('click', function() {
+        li.remove(); // This removes the entire <li> from the page
+    });
+
     jobsContainer.appendChild(li);
 
-    // 7. Clear the inputs so the user can add another job
+    // Clear inputs
     companyInput.value = '';
     roleInput.value = '';
     locationInput.value = '';
-    dateInput.value = '';
+    document.getElementById('date').valueAsDate = new Date();
 });
