@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Tracker</title>
+    <!-- This links your HTML to the CSS file we will create in Step 2 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Main Title -->
+        <h1>Job Tracker</h1>
+
+        <!-- Form to add a new job -->
+        <div id="job-form">
+            <h3>Add New Application</h3>
+            
+            <label for="company">Company Name</label>
+            <input type="text" id="company" placeholder="e.g. Google">
+
+            <label for="role">Job Title</label>
+            <input type="text" id="role" placeholder="e.g. Junior Java Developer">
+
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="e.g. Cape Town">
+
+            <label for="date">Date Applied</label>
+            <input type="date" id="date">
+            
+            <label for="status">Application Status</label>
+            <select id="status">
+                <option value="Applied">Applied</option>
+                <option value="Interviewing">Interviewing</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Rejected">Rejected</option>
+            </select>
+
+            <button id="add-btn">Add to List</button>
+        </div>
+
+        <!-- Section where jobs will appear -->
+        <div id="job-list">
+            <h3>My Applications</h3>
+            <ul id="jobs-container">
+                <!-- JavaScript will inject jobs here later -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- This will link to your JavaScript file in Step 3 -->
+    <script src="script.js"></script>
+</body>
+</html>
