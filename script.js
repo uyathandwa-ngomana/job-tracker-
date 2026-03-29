@@ -16,16 +16,19 @@ window.onload = function() {
 // 3. Function to create the HTML and show the job on the page
 function displayJob(jobData) {
     const li = document.createElement('li');
+    
+    // Create a CSS class name from the status (e.g., "Applied" -> "status-applied")
+    const statusClass = `status-${jobData.status.toLowerCase()}`;
+
     li.innerHTML = `
         <div class="job-card-content">
             <span class="job-title">${jobData.role} at ${jobData.company}</span>
-            <div class="job-info">${jobData.location} | Applied on: ${jobData.date}</div>
-            <div class="status-badge">${jobData.status}</div>
+            <div class="job-info">${jobData.location} | Applied: ${jobData.date}</div>
+            <div class="status-badge ${statusClass}">${jobData.status}</div>
         </div>
         <button class="delete-btn">Delete</button>
     `;
 
-    // Delete button logic
     li.querySelector('.delete-btn').addEventListener('click', function() {
         li.remove();
         removeJobFromStorage(jobData.id);
@@ -33,6 +36,7 @@ function displayJob(jobData) {
 
     jobsContainer.appendChild(li);
 }
+
 
 // 4. Click event to add a new job
 addBtn.addEventListener('click', function() {
