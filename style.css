@@ -84,14 +84,35 @@ ul {
 }
 
 /* Individual Job Cards */
+/* Styling for the Job Card Layout */
 li {
-    background: white;
-    padding: 20px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border-left: 6px solid #1a73e8;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.job-card-content {
+    flex-grow: 1;
+}
+
+/* Delete Button Styling */
+.delete-btn {
+    background-color: #dc3545; /* Professional Red */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    width: auto; /* Overrides the 100% width from earlier */
+    margin-left: 15px;
+    transition: background 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
 
 .job-info {
     font-size: 14px;
